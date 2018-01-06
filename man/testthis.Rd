@@ -4,7 +4,6 @@
 \name{testthis}
 \alias{testthis}
 \alias{testthis-package}
-\alias{testthis-package}
 \title{Testthis-package}
 \description{
 RStudio addins for several common testing-related tasks during package

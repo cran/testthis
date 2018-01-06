@@ -61,3 +61,4 @@ Other infrastructure: \code{\link{use_test_subdir}},
   \code{\link{use_testdata_raw}}, \code{\link{use_tester}},
   \code{\link{use_testignore}}
 }
+\concept{infrastructure}

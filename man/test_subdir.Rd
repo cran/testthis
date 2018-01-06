@@ -32,9 +32,6 @@ This is a simple wrapper for \code{\link[devtools:test]{devtools::test()}}, but 
 the tests in \file{inst/tests/} or \file{tests/testthat}, it runs the tests
 in a subdirectory of that folder. For creating such subdirectories,
 please also see \code{\link[=use_test_subdir]{use_test_subdir()}}.
-
-\code{test_all()} Runs the tests in \file{tests/testthat} and all its
-subdirectories (except \file{testdata} and \file{testdata-raw}).
 }
 \section{Test subdirectory presets}{
 

@@ -16,15 +16,11 @@ lest_this(...)
 \code{NULL} (invisibly)
 }
 \description{
-This is a convenience function to run testthat tests in a single .R file. If
-the file currently open in the RStudio editor is called \code{my_function.R},
-\code{test_this()} calls \code{testthat::test_file()} on
-"tests/testthat/test_my_function.R". If the filename of the currently open
-file with starts with \code{test_} it will call \code{testthat::test_file()}
-on the current file.
-
-\code{lest_this()} does the same, but calls \code{devtools::load_all()}
-first.
+Runs testthat tests in a single .R file. If the file currently open in the
+RStudio editor is called \code{my_function.R}, \code{test_this()} calls
+\code{testthat::test_file()} on \file{tests/testthat/test_my_function.R}. If
+the filename of the currently open file with starts with \code{test_} it will
+call \code{testthat::test_file()} on the current file.
 }
 \details{
 This is useful in cases where you don't want to run all tests in a package

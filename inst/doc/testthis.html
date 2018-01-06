@@ -12,7 +12,7 @@
 
 <meta name="author" content="Stefan Fleck" />
 
-<meta name="date" content="2017-10-26" />
+<meta name="date" content="2018-01-06" />
 
 <title>testthis package vignette</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">testthis package vignette</h1>
 <h4 class="author"><em>Stefan Fleck</em></h4>
-<h4 class="date"><em>2017-10-26</em></h4>
+<h4 class="date"><em>2018-01-06</em></h4>
 
 
 
@@ -147,73 +147,8 @@ tdat &lt;-<span class="st"> </span><span class="kw">read_testdata</span>(<span c
   <span class="co">#* @testing detect_testthis_comments</span>
   ...
 }</code></pre></div>
-<p>The test_coverage summary for a package may look like this (+ marks function for which tests exist):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">get_test_coverage</span>()
-<span class="co">#&gt; Package /tmp/RtmpbSXtuD/Rbuild1bbd120a49cb/testthis, Test Coverage: 25.9%</span>
-<span class="co">#&gt;  </span>
-<span class="co">#&gt;  exported functions ....................                        </span>
-<span class="co">#&gt;  - get_test_coverage    </span>
-<span class="co">#&gt;  - lest_this            </span>
-<span class="co">#&gt;  - open_testfile        </span>
-<span class="co">#&gt;    read_testdata        </span>
-<span class="co">#&gt;  - test_acceptance      </span>
-<span class="co">#&gt;    test_all             </span>
-<span class="co">#&gt;  - test_integration     </span>
-<span class="co">#&gt;  - test_manual          </span>
-<span class="co">#&gt;    test_skeleton        </span>
-<span class="co">#&gt;  + test_subdir          </span>
-<span class="co">#&gt;  - test_this            </span>
-<span class="co">#&gt;  - test_with_skip       </span>
-<span class="co">#&gt;    use_acceptance_tests </span>
-<span class="co">#&gt;    use_integration_tests</span>
-<span class="co">#&gt;    use_manual_tests     </span>
-<span class="co">#&gt;  + use_test_subdir      </span>
-<span class="co">#&gt;  + use_testdata         </span>
-<span class="co">#&gt;    use_testdata_raw     </span>
-<span class="co">#&gt;  + use_tester           </span>
-<span class="co">#&gt;  + use_testignore       </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  S3 Methods ....................                     </span>
-<span class="co">#&gt;   print.Test_coverage</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  internal functions ....................                                     </span>
-<span class="co">#&gt;    .onLoad                           </span>
-<span class="co">#&gt;  + detect_testthis_comments          </span>
-<span class="co">#&gt;    dir_mock                          </span>
-<span class="co">#&gt;    extract_test_that_desc            </span>
-<span class="co">#&gt;  + extract_testthis_comments         </span>
-<span class="co">#&gt;    find_test_scripts_mock            </span>
-<span class="co">#&gt;    get_current_file                  </span>
-<span class="co">#&gt;    get_pkg_S3methods                 </span>
-<span class="co">#&gt;    get_pkg_exports                   </span>
-<span class="co">#&gt;    get_pkg_functions                 </span>
-<span class="co">#&gt;  + get_pkg_tested_functions          </span>
-<span class="co">#&gt;  + get_pkg_tested_functions_from_desc</span>
-<span class="co">#&gt;    get_pkg_tested_functions_from_tags</span>
-<span class="co">#&gt;    get_pkg_testfile_names_from_tags  </span>
-<span class="co">#&gt;    get_pkg_testignore                </span>
-<span class="co">#&gt;    get_rdir_taglist                  </span>
-<span class="co">#&gt;  + get_tag                           </span>
-<span class="co">#&gt;  + get_taglist                       </span>
-<span class="co">#&gt;    get_test_taglist                  </span>
-<span class="co">#&gt;    get_testfile_name                 </span>
-<span class="co">#&gt;    get_testfile_name_from_tag        </span>
-<span class="co">#&gt;  + has_testdata                      </span>
-<span class="co">#&gt;    is_in_rdir                        </span>
-<span class="co">#&gt;    is_testfile                       </span>
-<span class="co">#&gt;    is_testfiles                      </span>
-<span class="co">#&gt;    is_valid                          </span>
-<span class="co">#&gt;    is_valid.Test_coverage            </span>
-<span class="co">#&gt;    list_rdir_files                   </span>
-<span class="co">#&gt;  + list_test_files                   </span>
-<span class="co">#&gt;    msg_testfile_does_not_exist       </span>
-<span class="co">#&gt;    open_associated_rfile             </span>
-<span class="co">#&gt;    require_rstudio                   </span>
-<span class="co">#&gt;  + skip_test_files                   </span>
-<span class="co">#&gt;    taglist                           </span>
-<span class="co">#&gt;    test_coverage                     </span>
-<span class="co">#&gt;    test_foobar_tests                 </span>
-<span class="co">#&gt;  + testthis_tokenizer</span></code></pre></div>
+<p>To display the test coverage use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">get_test_coverage</span>()</code></pre></div>
 </div>
 <div id="testthis-tags" class="section level2">
 <h2>Testthis Tags</h2>

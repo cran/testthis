@@ -5,7 +5,6 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 
-devtools::load_all('.')
 library(testthis)
 library(rstudioapi)
 
@@ -49,6 +48,6 @@ library(rstudioapi)
 #    ...
 #  }
 
-## ------------------------------------------------------------------------
-get_test_coverage()
+## ---- eval = FALSE-------------------------------------------------------
+#  get_test_coverage()
 
