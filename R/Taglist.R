@@ -1,4 +1,4 @@
-#* @testfile test_blah_blubb
+#* @testfile test_Taglist
 
 #' Testthis Taglist
 #'
@@ -35,8 +35,7 @@ get_rdir_taglist <- function(){
 
 get_test_taglist <- function(){
   ttfiles  <- list_test_files(full_names = TRUE)
-  taglists <- lapply(ttfiles, get_taglist) %>%
-    setNames(ttfiles)
+  setNames(lapply(ttfiles, get_taglist), ttfiles)
 }
 
 

@@ -1,7 +1,7 @@
 Package: testthis
 Type: Package
 Title: Utils and 'RStudio' Addins to Make Testing Even More Fun
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: person("Stefan", "Fleck", email = "stefan.b.fleck@gmail.com", role = c("aut", "cre"))
 Maintainer: Stefan Fleck <stefan.b.fleck@gmail.com>
 Description: 
@@ -13,15 +13,15 @@ Description:
   subdirectories of the test/testthat directory.
 License: MIT + file LICENSE
 Imports: assertthat, devtools, usethis (>= 0.1.0), testthat, stringi,
-        magrittr, utils, stats, rprojroot, tools
-Suggests: knitr, rmarkdown, rstudioapi
+        magrittr, utils, stats, tools, pkgload
+Suggests: rprojroot, knitr, rmarkdown, rstudioapi, roxygen2 (>= 5.0.0)
 Encoding: UTF-8
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
 URL: https://github.com/s-fleck/testthis
 BugReports: https://github.com/s-fleck/testthis/issues
 NeedsCompilation: no
-Packaged: 2018-01-06 11:22:00 UTC; hoelk
+Packaged: 2018-08-11 05:27:43 UTC; hoelk
 Author: Stefan Fleck [aut, cre]
 Repository: CRAN
-Date/Publication: 2018-01-06 11:34:23 UTC
+Date/Publication: 2018-08-11 05:40:05 UTC

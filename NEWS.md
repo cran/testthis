@@ -1,3 +1,12 @@
+# testthis 1.0.4
+
+* Import `parse_ns_file()` from pkgload instead of devtools
+* #* @testfile tag paths can now contain the script file extension `.R`
+* removed deprecated `lest_this()` function
+* various small bugfixes and improvements
+
+
+
 # testthis 1.0.3
 
 * Maintenance release to make vignette comply with new CRAN guidelines

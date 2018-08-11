@@ -45,15 +45,27 @@ get_pkg_testfile_names_from_tags <- function(){
   infiles <- list_rdir_files()
 
   res <- lapply(infiles, get_taglist) %>%
-    lapply(get_tag, 'testfile') %>%
+    lapply(get_tag, "testfile") %>%
     stats::setNames(infiles) %>%
     unlist()
 
-  data.frame(
-    rfile = names(res),
-    tfile = paste0(as.character(res), '.R'),
-    stringsAsFactors = FALSE
-  )
+
+  if (is_empty(res)){
+    data.frame(
+      rfile = character(),
+      tfile = character()
+    )
+  } else {
+    data.frame(
+      rfile = names(res),
+      tfile = ifelse(
+        tools::file_ext(res) == "",
+        paste0(as.character(res), ".R"),
+        as.character(res)
+      ),
+      stringsAsFactors = FALSE
+    )
+  }
 }
 
 
@@ -70,7 +82,21 @@ get_testfile_name_from_tag <- function(infile){
 
   data.frame(
     rfile = infile,
-    tfile = paste0(res, '.R'),
+    tfile = ifelse(
+      tools::file_ext(res) == "",
+      paste0(as.character(res), ".R"),
+      as.character(res)
+    ),
     stringsAsFactors = FALSE
   )
+}
+
+
+
+
+ensure_testthat <- function(
+  base_path = usethis::proj_get()
+){
+  if (!dir.exists(file.path(base_path, "tests", "testthat")))
+    usethis::use_testthat()
 }

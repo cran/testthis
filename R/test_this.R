@@ -14,7 +14,7 @@
 #' @export
 #' @return `NULL` (invisibly)
 #'
-#' @rdname test_this.R
+#' @rdname test_this
 test_this <- function(...){
   fname <- get_testfile_name()
 
@@ -32,19 +32,4 @@ test_this <- function(...){
   }
 
   invisible()
-}
-
-
-
-
-#' \code{lest_this()} Deprecated. Please us `test_this()` instead.
-#' @export
-#' @rdname test_this.R
-lest_this <- function(...){
-  .Deprecated(
-    msg = paste(
-      "'test_this()' now reloads package by default. 'lest_this()' is no",
-      "longer required and will be dropped in future versions."
-    ))
-  test_this(...)
 }

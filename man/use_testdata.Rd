@@ -22,7 +22,7 @@ to / read from.}
 
 \item{overwrite}{Logical scalar. Should existing files be overwritten?}
 
-\item{ignore}{Should the newly created file be added to \code{.Rbuildignore?}}
+\item{ignore}{Should the newly created file be added to \code{.Rbuildignore}?}
 
 \item{compress}{a logical specifying whether saving to a named file is
     to use \code{"gzip"} compression, or one of \code{"gzip"},

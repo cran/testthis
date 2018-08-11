@@ -2,12 +2,9 @@
 % Please edit documentation in R/test_this.R
 \name{test_this}
 \alias{test_this}
-\alias{lest_this}
 \title{Test this file}
 \usage{
 test_this(...)
-
-lest_this(...)
 }
 \arguments{
 \item{...}{passed on to \code{\link[testthat:test_file]{testthat::test_file()}}}
