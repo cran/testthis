@@ -8,15 +8,15 @@
 #'
 #' @inheritSection test_subdir Test subdirectory presets
 #'
-#' @param path Character scalar. Will be processed with [base::make.names()] to
+#' @param path `character` scalar. Will be processed with [base::make.names()] to
 #'   make a syntactically valid name.
-#' @param make_tester Logical or character scalar. Create an R script with a
+#' @param make_tester `logical` or `character` scalar. Create an R script with a
 #'   test helper function. If `TRUE` an R script file will be placed into the
 #'   \file{R/} directory of the current package, containing a function definition
 #'   for running the tests in `path`. The file will be named
 #'   \file{testthis-testers.R}, but you can specify  your own name by
-#'   passing a character scalar to make_tester. See [use_tester()] for details.
-#' @param ignore_tester Logical. Add \file{tester} file to \file{.Rbuildignore}?
+#'   passing a character scalar to `make_tester()`. See [use_tester()] for details.
+#' @param ignore_tester `logical` scalar`. Add \file{tester} file to \file{.Rbuildignore}?
 #' @seealso [`test_subdir()`]
 #' @family infrastructure
 #'
@@ -39,9 +39,10 @@ use_test_subdir <- function(
   ignore_tester = TRUE
 ){
   # Preconditions
-  assert_that(is.scalar(path) && is.character(path))
-  assert_that(is.scalar(make_tester))
-  assert_that(is.scalar(is.logical(make_tester) || is.character(make_tester)))
+  assert_that(
+    is_scalar_character(path),
+    is_scalar_bool(make_tester) || is_scalar_character(make_tester)
+  )
 
   # Process arguments
   path <- make.names(path)
@@ -71,10 +72,11 @@ use_test_subdir <- function(
 #' in a predefined directory. This function powers the `make_tester` option
 #' of [use_test_subdir()] and you will likely not need to run it manually.
 #'
-#' @param path Name of the subdirectory oft \file{tests/testthat/} for which
-#'   to create a tester function.
-#' @param ignore Logical. Add `tester_path` to \file{.Rbuildignore}?
-#' @param tester_path \R script file in which to store the tester functions
+#' @param path `character` scalar. Name of the subdirectory of
+#'   \file{tests/testthat/} for which to create a tester function.
+#' @param ignore `logical` scalar. Add `tester_path` to \file{.Rbuildignore}?
+#' @param tester_path `logical` scalar. Path to the \R script file in which to
+#' store the tester functions
 #'
 #' @return `TRUE` on success (invisibly).
 #' @export
@@ -85,7 +87,16 @@ use_tester <- function(
   ignore = TRUE,
   tester_path = file.path("R", "testthis-testers.R")
 ){
+  assert_that(
+    is_scalar_bool(ignore),
+    is_scalar_character(tester_path)
+  )
+
   fname   <- file.path(usethis::proj_get(), tester_path)
+  assert(
+    dir.exists(dirname(fname)),
+    sprintf("Directory '%s' does not exist", dirname(fname))
+  )
   funname <- paste0("test_", path)
 
   message(sprintf("creating tester function %s() in %s", funname, fname))

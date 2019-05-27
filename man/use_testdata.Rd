@@ -2,22 +2,28 @@
 % Please edit documentation in R/use_testdata.R
 \name{use_testdata}
 \alias{use_testdata}
+\alias{use_testdata_raw}
 \alias{has_testdata}
 \alias{read_testdata}
+\alias{find_testdata}
 \title{Create \code{testdata} folder.}
 \usage{
 use_testdata(..., subdir = NULL, overwrite = FALSE, ignore = FALSE,
-  compress = TRUE)
+  compress = TRUE, refhook = NULL, version = NULL)
+
+use_testdata_raw()
 
 has_testdata()
 
 read_testdata(infile, subdir = NULL)
+
+find_testdata(..., path = ".", must_exist = FALSE)
 }
 \arguments{
 \item{...}{\R objects to save to the \file{testdata} dir. If empty,
 an empty directory is created.}
 
-\item{subdir}{Character scalar. Subdirectory of \file{test_data} to save
+\item{subdir}{\code{character} scalar. Subdirectory of \file{testdata} to save
 to / read from.}
 
 \item{overwrite}{Logical scalar. Should existing files be overwritten?}
@@ -29,8 +35,19 @@ to / read from.}
     \code{"bzip2"} or \code{"xz"} to indicate the type of compression to
     be used.  Ignored if \code{file} is a connection.}
 
+\item{refhook}{a hook function for handling reference objects.}
+
+\item{version}{the workspace format version to use.  \code{NULL}
+    specifies the current default version (3). The only other supported
+    value is 2, the default from \R 1.4.0 to \R 3.5.0.}
+
 \item{infile}{rds file to read (must end in .rds, otherwise .rds ending is
 automatically added)}
+
+\item{path}{Path of the directory to create, relative to the project.}
+
+\item{must_exist}{\code{logical} scalar. Assert that path specified in \code{...}
+exists}
 }
 \value{
 \code{use_testdata()} returns \code{TRUE} if object was successfully saved.
@@ -39,6 +56,9 @@ automatically added)}
 \file{tests/testthat/testdata} folder.
 
 \code{read_testdata()} returns a single \R object
+
+\code{find_testdata()} returns the normalized path to a file in a
+in the testdata directory
 }
 \description{
 Save R objects to separate files \file{tests/testthat/testdata} in the
@@ -58,7 +78,6 @@ Save R objects to separate files \file{tests/testthat/testdata} in the
 \code{\link[base:readRDS]{base::readRDS()}}
 
 Other infrastructure: \code{\link{use_test_subdir}},
-  \code{\link{use_testdata_raw}}, \code{\link{use_tester}},
-  \code{\link{use_testignore}}
+  \code{\link{use_tester}}
 }
 \concept{infrastructure}

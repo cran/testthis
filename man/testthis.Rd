@@ -13,7 +13,8 @@ testthis also provides utility function to manage tests in subdirectories of
 the test/testthis directory.
 }
 \details{
-For details please refer to \code{vignette("testthis")}
+For details please refer to the
+\href{https://s-fleck.github.io/testthis/index.html}{README}
 }
 \section{Setting the project path}{
 
@@ -38,6 +39,28 @@ you want your files to be named \code{test_foofunction.R} or \code{test-foofunct
 \item{\code{testthis.integration_tests_path}, \code{testthis.acceptance_tests_path},
 \code{testthis.manual_tests_path}}{Default paths used by the functions
 \code{testthis::use_integration_tests()}, \code{testthis::test_integration()}, etc...}
+}
+}
+
+\section{Testthis Tags}{
+
+
+test_this tags are special comments that modify the behaviour of the
+functions supplied by this package. They are of the form \code{#* @tag <value>}.
+Please not that only some test_this tags really require a \code{<value>}.
+
+\strong{Valid tags for script files in the /R/ dir (\code{pkg/R/*.R})}
+\itemize{
+\item \code{@testfile <filename>}: manually specify associated test file. Should
+usually start with \code{test_}. This is used by \code{test_this()}, \code{lest_this()} and
+\code{open_testfile()}.
+}
+
+\strong{Valid tags or test files (\code{pkg/tests/testthat/test_*.R})}
+\itemize{
+\item \code{@testing <functionname>}:  mark \code{functionname} as tested.
+Should usually go next the associated \code{test_that()} call. This is used by
+\code{test_coverage()}.
 }
 }
 

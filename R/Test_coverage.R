@@ -1,17 +1,18 @@
-#' Get Test Coverage of Package
+#' Test coverage of package
 #'
-#' This extracts the test coverage of the target package (usually the package
-#' you are working on). Bear in mind that testthis uses a checklist-approach for
-#' this, and depends that you either put the function name in your
-#' `test_that()` calls, or used test_this tags. If you want automatic
-#' analysis of test coverage, you must look in other packages such as `covr`.
+#' This determines the test coverage of the target package based on the `desc`
+#' argument of `test_that()` calls. If you require a more comprehensive analysis
+#' of test coverage, try the package **covr** instead.
 #'
-#' @param from_tags Logical scalar. Checks the files if your test directory for
+#' `test_coverage` looks in `.covrignore` for functions that should be ignored
+#' for coverage analysis (see [usethis::use_covr_ignore()])
+#'
+#' @param from_tags `logical` scalar. Checks the files if your test directory for
 #'   testthis tags. Specifically, if you have the comment `#* @testing myfunction`
 #'   in any of your test files, myfunction will be marked as tested.
-#' @param from_desc Logical scalar. Checks the `desc` argument
+#' @param from_desc `logical` scalar. Checks the `desc` argument
 #'   `test_that(...)` of the tests in your test directory for functions
-#'   names. E.g. if you have a testfile that contains
+#'   names. E.g. if you have a test file that contains
 #'   `test_that("myfunction works", {...})`, myfunction will be marked as
 #'   tested.
 #'
@@ -28,11 +29,11 @@
 #' @examples
 #'
 #' \dontrun{
-#' x <- get_test_coverage()
+#' x <- test_coverage()
 #' as.data.frame(x)
 #' }
 #'
-get_test_coverage <- function(
+test_coverage <- function(
   from_tags = TRUE,
   from_desc = TRUE
 ){
@@ -54,15 +55,32 @@ get_test_coverage <- function(
 
 
   attr(res, "package") <- usethis::proj_get()
-  test_coverage(res)
+  as_test_coverage(res)
 }
 
 
 
 
-test_coverage <- function(dat){
+#' Get Test Coverage
+#'
+#' Deprecated in favor of [test_coverage()]
+#' @param from_tags,from_desc see [test_coverage()]
+#'
+#' @export
+get_test_coverage <- function(
+  from_tags = TRUE,
+  from_desc = TRUE
+){
+  .Deprecated("test_coverage()")
+  test_coverage(from_tags = from_tags, from_desc = from_desc)
+}
+
+
+
+
+as_test_coverage <- function(dat){
   class(dat) <- c("Test_coverage", "data.frame")
-  assert_that(is_valid(dat))
+  assert(is_valid.Test_coverage(dat))
   return(dat)
 }
 
@@ -72,11 +90,11 @@ test_coverage <- function(dat){
 is_valid.Test_coverage <- function(dat){
   res <- list()
 
-  res$names <- assert_that(identical(
+  res$names <- assert(identical(
     c("fun", "exp", "s3", "tested", "ignore", "paths"),
     names(dat))
   )
-  res$types <- assert_that(identical(
+  res$types <- assert(identical(
     unname(unlist(lapply(dat, class))),
     c("character", "logical", "logical", "logical", "logical", "AsIs"))
   )
@@ -146,13 +164,13 @@ print.Test_coverage <- function(x, ...){
 
     hline <- paste(paste(rep(".", 20), collapse = ""), "\n")
 
-    if(nrow(res$exp) > 0){
+    if (!is.null(res$exp) && nrow(res$exp) > 0){
       cat(" exported functions", hline)
       print(res$exp[, !colnames(res$exp) %in% "grp"], row.names = FALSE, right = FALSE)
     }
 
 
-    if(nrow(res$s3) > 0){
+    if (!is.null(res$s3) && nrow(res$s3) > 0){
       if(nrow(res$exp) > 0){
         cat("\n")
       }
@@ -161,7 +179,7 @@ print.Test_coverage <- function(x, ...){
     }
 
 
-    if(nrow(res$int) > 0){
+    if (!is.null(res$int) && nrow(res$int) > 0){
       if(nrow(res$s3) > 0 || nrow(res$exp) > 0){
         cat("\n")
       }
@@ -180,9 +198,9 @@ print.Test_coverage <- function(x, ...){
 
 #' Get functions defined in target package
 #'
-#' Helper functions internally by used internally by [get_test_coverage()].
+#' Helper functions internally by used internally by [test_coverage()].
 #'
-#' @inheritParams get_test_coverage
+#' @inheritParams test_coverage
 #' @noRd
 #' @return `get_pkg_functions()` returns a character vector of *all* functions
 #'   defined in package.
@@ -294,11 +312,15 @@ get_pkg_tested_functions <- function(from_tags, from_desc){
 #' @noRd
 get_pkg_testignore <- function(){
   tfile <- file.path(usethis::proj_get(), "tests", "testthat", "_testignore")
+  cfile <- file.path(usethis::proj_get(), ".covrignore")
 
   if (file.exists(tfile)){
-    return(readLines(tfile))
+    warning("_testignore is deprecated. Please use usethis::use_covr_ignore instead.")
+    readLines(tfile)
+  } else if (file.exists(cfile)){
+    readLines(cfile)
   } else {
-    return(NULL)
+    NULL
   }
 }
 
@@ -341,8 +363,8 @@ get_pkg_tested_functions_from_tags <- function(){
 #' @noRd
 #'
 get_pkg_tested_functions_from_desc <- function(){
-  ttfiles <- list_test_files(full_names = TRUE, recursive = TRUE)
-  descs   <- extract_test_that_desc(ttfiles)
+  idx <- get_test_index()
+  descs <- setNames(idx$desc, idx$path)
   pkgfuns <- get_pkg_functions()
 
   lapply(pkgfuns, function(.f){
@@ -353,41 +375,4 @@ get_pkg_tested_functions_from_desc <- function(){
     as.character(r[vapply(r, Negate(is.null), logical(1))])
   }) %>%
     setNames(pkgfuns)
-}
-
-
-
-
-#' Extract "desc" arguments from all test_that functions from .R script files
-#'
-#' @param infile character. Path to an .R script file, or a list of such paths;
-#' usually created with list.files("/path/to/directory")
-#' @return content of the "desc" arguments of test_that functions as a named
-#'   list (one element per file, names correspond to full file paths.)
-#' @noRd
-extract_test_that_desc <- function(infile){
-  exps  <- lapply(infile, parse) %>%
-    setNames(infile)
-
-  # fun tries to account for all possibilities where desc is not the second
-  # argument of testthat
-  fun <- function(x) {
-    .x <- as.list(x)
-    if("desc" %in% names(.x)){
-      return(.x$desc)
-    } else if ("code" %in% names(.x)){
-      codepos <- which("code" == names(.x))
-      if(identical(codepos, 2L)){
-        return(.x[[3]])
-      }
-    } else {
-      return(.x[[2]])
-    }
-  }
-
-
-  lapply(exps, function(.x) {
-    test_that_calls <- .x[grep("test_that", as.list(.x))]
-    lapply(test_that_calls, fun)
-  })
 }

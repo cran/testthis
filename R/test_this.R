@@ -1,13 +1,13 @@
 #' Test this file
 #'
-#' Runs testthat tests in a single .R file. If the file currently open in the
+#' Runs testthat tests in a single `.R` file. If the file currently open in the
 #' RStudio editor is called `my_function.R`, `test_this()` calls
 #' `testthat::test_file()` on \file{tests/testthat/test_my_function.R}. If
 #' the filename of the currently open file with starts with `test_` it will
 #' call `testthat::test_file()` on the current file.
 #'
 #' This is useful in cases where you don't want to run all tests in a package
-#' via `devtools::test()` (CTRL+SHIFT+T).
+#' via `devtools::test()` (CTRL+SHIFT+T in RStudio).
 #'
 #' @param ... passed on to [testthat::test_file()]
 #'

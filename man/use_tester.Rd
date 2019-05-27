@@ -8,12 +8,13 @@ use_tester(path, ignore = TRUE, tester_path = file.path("R",
   "testthis-testers.R"))
 }
 \arguments{
-\item{path}{Name of the subdirectory oft \file{tests/testthat/} for which
-to create a tester function.}
+\item{path}{\code{character} scalar. Name of the subdirectory of
+\file{tests/testthat/} for which to create a tester function.}
 
-\item{ignore}{Logical. Add \code{tester_path} to \file{.Rbuildignore}?}
+\item{ignore}{\code{logical} scalar. Add \code{tester_path} to \file{.Rbuildignore}?}
 
-\item{tester_path}{\R script file in which to store the tester functions}
+\item{tester_path}{\code{logical} scalar. Path to the \R script file in which to
+store the tester functions}
 }
 \value{
 \code{TRUE} on success (invisibly).
@@ -25,7 +26,6 @@ of \code{\link[=use_test_subdir]{use_test_subdir()}} and you will likely not nee
 }
 \seealso{
 Other infrastructure: \code{\link{use_test_subdir}},
-  \code{\link{use_testdata_raw}},
-  \code{\link{use_testdata}}, \code{\link{use_testignore}}
+  \code{\link{use_testdata}}
 }
 \concept{infrastructure}
