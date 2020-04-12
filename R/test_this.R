@@ -22,11 +22,11 @@ test_this <- function(...){
     rstudioapi::documentSaveAll()
   }
 
-  devtools::load_all(usethis::proj_get())
-
-  if(file.exists(fname)){
+  if (file.exists(fname)){
     message("Running tests in ", fname)
+    devtools::load_all(usethis::proj_get(), helpers = FALSE)
     testthat::test_file(fname, ...)
+
   } else {
     msg_testfile_does_not_exist(fname)
   }

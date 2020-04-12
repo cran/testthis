@@ -1,8 +1,16 @@
+# testthis 1.1.1
+
+* `use_testdata_raw()` gains `name` argument similar to `usethis::use_data()`.
+  If `name` is provided, a script file for a dataset of that name is created
+  (and opened if you are using RStudio) (#15, thanks @TylerGrantSmith)
+* removed some brittle tests for compatibility with usethis 1.6.0 (#16, thanks @jennybc)
+* don't load helpers twice in `test_this()` (#13, thanks @krlmlr)
+
+
 # testthis 1.1.0
 
-* fixed `read_testdata()` so that it works with R CMD CHECK (#11)
 * added `find_testdata()` which returns the path to the testdata directory
-* added `version` and `refhook` argument to `use_testdata()` (which is passed
+* added `version` and `refhook` argument to `use_testdata()` (which are passed
   on to `saveRDS()`). You can use `version = 2` to create testdata that is
   compatible with R < 3.5.0.
 * added `test_index()` which displays an index / table of contents of all 
@@ -10,8 +18,7 @@
   source markers if called from RStudio.
 * renamed `get_test_coverage()` to just `test_coverage()`
 * added `.covrignore` support to `test_coverage()`
-* `read_testdata()` now works in R CMD Check thanks to JakeVestal (#11)
-
+* `read_testdata()` now works in R CMD Check thanks to @JakeVestal (#11)
 
 
 # testthis 1.0.4
@@ -22,7 +29,6 @@
 * various small bug fixes and improvements
 
 
-
 # testthis 1.0.3
 
 * Maintenance release to make vignette comply with new CRAN guidelines
@@ -30,9 +36,7 @@
   RStudio and reload the package before running tests.
 * `lest_this()` has been deprecated. `test_this()` now behaves like 
   `lest_this()`
-  
-  
-  
+
 
 # testthis 1.0.2
 
@@ -41,16 +45,12 @@
   compatibility with usethis.
 
 
-
-
 # testthis 1.0.1
 
 * Reorganized package documentation (README, vignette, `?testthis`)
 * all `pkg =` function arguments have been changed to `base_path =` for
   consistency with the **usethis** package.
 * `get_test_coverage()` now recognizes tests in test subdirs
-
-
 
 
 # testthis 1.0.0
